@@ -1,0 +1,35 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>Products</title>
+		<style>
+		li:hover
+		{
+		cursor:pointer;
+		}
+		</style>
+	</head>
+	
+	<body>
+		<h1 style=color:grey;>Products</h1>
+		
+	<div id=product>
+	</div>
+		
+		
+	</body>
+	<script>
+	var products=[
+	{id:1,category:"cosmetics"},
+	{id:2,category:"innerwear"},
+	{id:3,category:"electronics"},
+	{id:4,category:"spicies"}
+	]
+	var html="";
+	for(var i=0;i<products.length;i++)
+	{
+	html +='<a href=/products/'+products[i].id+'><ul><li>'+products[i].id+'&nbsp;&nbsp;'+products[i].category+'</li></ul></a>';
+	}
+		document.getElementById('product').innerHTML=html;
+	</script>
+</html>
