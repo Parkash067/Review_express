@@ -1,5 +1,6 @@
 /// <reference path="typings/node/node.d.ts" />
 /// <reference path ="typings/express/express.d.ts"/>
+/// <reference path ="typings/body-parser/body-parser.d.ts"/>
 
 //step#1: http server
 /*var http=require('http');
@@ -475,3 +476,147 @@ var server=app.listen(port,function(){
 	console.log("listen at: "+listenport);
 	
 });*/
+
+//step#8 url parameters
+/*import express=require('express');
+var path=require('path');
+var app:express.Express=express();
+//set configuration
+app.set('trust proxy',true);
+app.set('case sensitive routing',true);
+//app.set('strict routing',true);
+app.set('views',path.join(__dirname,'./views/ejs'));
+app.set('view engine','ejs');
+
+
+app.use(express.static(path.join(__dirname,'./public')));
+
+app.get('/users/:name?',function(req,res){
+    if(req.params.name){
+         // res.send("Helo user "+" "+req.params.name);
+          res.json(req.params);
+    }
+  else{
+      res.send("Helo user")
+     
+  }
+})
+
+var port=process.env.PORT||3000;
+var server=app.listen(port,function(){
+	var listenport=server.address().port;
+	console.log("listen at: "+listenport);  
+	
+});*/
+
+
+//step#9 bodyParser data submission in body
+/*import express=require('express');
+import bodyParser=require('body-parser');
+var app:express.Express=express();
+var path=require('path');
+
+
+//set configuration
+app.set('trust proxy',true);
+app.set('case sensitive routing',true);
+app.set('strict routing',true);
+
+app.set('views' ,path.join(__dirname,'./views/ejs'));
+app.set('view engine','ejs');
+
+app.use(express.static(path.join(__dirname,'./public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.get('/',function(req,res){
+    res.render('signin');
+})
+
+app.post('/validate',function(req,res){
+    //res.send(req.body.username);
+    res.json(req.body);
+})
+
+var port=process.env.PORT||3000;
+var server=app.listen(port,function(req,res){
+    var listenport=server.address().port;
+    console.log("server is listening at port: "+listenport);
+})*/
+
+//Final step: connection of mongoose
+/*import express=require('express');
+var path=require('path');
+var app:express.Express=express();
+
+
+//connection with mongodb first download mongoose by using this cmd npm install mongoose
+var mongoose=require('mongoose');
+mongoose.connect('mongodb://localhost/biodata');
+
+//after making connection we have to make our database schema similar to relation dbs when we creating data-types for fields.
+ var biodata_schema=new mongoose.Schema({
+     name:String,
+     age:Number
+ });
+ 
+ //making collection ==> 'info is a collection'
+ var info=mongoose.model('info',biodata_schema);
+ 
+//entering data
+var info1=new info({name:"parkash",age:20});
+//info1.save();
+
+app.get('/data/:id?',function(req,res){
+    if(req.params.id){
+          info.find({"_id":req.params.id},function(err,data){
+              res.send(data);
+    })}
+    else
+    {
+              info.find(function(err,data){
+              res.send(data);
+    })
+    }
+  
+})
+var port=process.env.PORT||3000;
+var server=app.listen(port,function(req,res){
+    var listenport=server.address().port;
+    console.log("server is listening at port: "+listenport);
+})
+
+*/
+
+//step Favicon module
+
+/*import express=require('express');
+import bodyParser=require('body-parser');
+var favicon=require('serve-favicon');
+var app:express.Express=express();
+var path=require('path');
+
+
+//set configuration
+app.set('trust proxy',true);
+app.set('case sensitive routing',true);
+app.set('strict routing',true);
+
+app.set('views' ,path.join(__dirname,'./views/ejs'));
+app.set('view engine','ejs');
+
+app.use(favicon(path.join(__dirname ,'./public/images/click.ico')));
+app.use(express.static(path.join(__dirname,'./public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
+
+app.get('/',function(req,res){
+    res.render("home");
+})
+
+var port=process.env.PORT||3000;
+var server=app.listen(port,function(req,res){
+    var listenport=server.address().port;
+    console.log("server is listening at port: "+listenport);
+})*/
